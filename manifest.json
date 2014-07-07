@@ -1,0 +1,12 @@
+{
+	'app': {
+		'scripts': ['script.js']
+	},
+	'manifest_version': 2,
+	'name': 'Xsstension',
+	'description': 'This extension tests a site's XSS vulnerability and logs the result to the console',
+	'browser_action': {
+		'default_icon': 'xss.png',
+		'default_title': 'XSS Test'
+	}
+}
