@@ -18,7 +18,7 @@ var server = http.createServer(function(request, response){
 				response.writeHead(200, headers);
 				response.end(data);
 			}
-		})	
+		});	
 	}
 });
 server.listen(port, ip);

