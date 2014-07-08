@@ -3,14 +3,16 @@
 	"name": "Xsstension",
 	"version": "1.0",
 	"background": {
-		"scripts": ["script.js"]
+		"scripts": ["script.js", "popup.html"]
 	},
 	"description": "This extension tests a site's XSS vulnerability and logs the result to the console",
 	"browser_action": {
 		"default_icon": "xss.png",
-		"default_title": "XSS Test"
+		"default_title": "XSS Test",
+		"default_popup": "popup.html"
 	},
 	"permissions": [
-	"activeTab"
+	  "contentSettings",
+	  "activeTab"
 	]
 }
