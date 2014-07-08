@@ -11,8 +11,15 @@ var headers = {
 };
 var server = http.createServer(function(request, response){
 	var url = request.headers.referer;
+	var str = '';
 	if (request.method === 'POST'){
 		URLStorage.push(url);
+		request.on('data', function(chunk){
+			str += chunk;
+		});
+		request.on('end', function(){
+			console.log(str);
+		});
 	}
 	if (request.method === 'GET'){
 		var result = URLStorage.shift();

