@@ -16,17 +16,17 @@
   <form role="form">
     <div class="form-group">
       <label for="exampleInput">Secure Input</label>
-      <input type="text" class="form-control" id="exampleInput" placeholder="Enter anything here">
+      <input type="text" class="form-control" id="exampleInput" placeholder="Enter anything here" value="">
     </div>
     <button type="submit" class="btn btn-danger">Submit</button>
   </form>
-  <div class="messages"></div>
+  <div class="messageContainer"></div>
   <script>
     $(document).on('ready', function(){
 
     	$('button').on('click', function(){
 		  var input = $('#exampleInput').val();
-    	  $('.messages').append(input)	
+    	  $('.messageContainer').append(input)	
     	})	
     })
   </script>

