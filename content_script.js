@@ -60,7 +60,7 @@ $.ajax({
 	type: "GET",
 	url: 'http://127.0.0.1:8080/',
 	success: function(data){
-		if ((!data) || data === document.URL){
+		if ((!data) || data !== document.URL){
 			$.ajax({
 				type: "POST",
 				url: 'http://127.0.0.1:8080/',

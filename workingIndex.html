@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset=utf-8 />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+  
+  <input type="text" class="form-control" id="exampleInput" placeholder="Enter anything here" value="">
+  <button type="submit" class="btn btn-danger">Submit</button>
+  <div class="messages"></div>
+  <script>
+    $(document).on('ready', function(){
+
+    	$('button').on('click', function(){
+		  var input = $('#exampleInput').val();
+    	  $('.messages').append('<li>' + input + '</li>')	
+    	})	
+    })
+  </script>
+
+
+</body>
+</html>
